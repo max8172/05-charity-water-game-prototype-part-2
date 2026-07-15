@@ -143,6 +143,7 @@ function winner() {
 
 function gen_level_recipe() {
   let output = [];
+  let counts = [];
   for (let i = 0; i < 3; i++) {
     let rand_val = key[Math.floor(Math.random() * key.length)];
     output.push(rand_val);
