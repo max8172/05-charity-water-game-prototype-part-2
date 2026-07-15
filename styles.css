@@ -1,0 +1,141 @@
+
+body {
+  background-color: color-mix(in srgb, #fff7e1 50%, #fff 50%);
+  margin: 0;
+}
+
+.content {
+  width: 40vw;
+  background-color: white;
+  min-height: calc(100vh - 60px);
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.level-label {
+  background-color: #ddd;
+  border-radius: 10px;
+}
+
+.vertical-list {
+  display: flex;
+  flex-direction: column;
+  width: 16vw;
+  margin: 0 auto;
+}
+
+.vertical-list-container {
+  
+}
+
+.vertical-list-item {
+  border: 1px solid rgb(174, 174, 174);
+  border-radius: 5px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.item-icon {
+  width: 36px;
+  height: 36px;
+  background-color: gold;
+}
+
+.water-arrow {
+  color: blue;
+  display: block;
+  text-align: center;
+  margin: -10px auto;
+}
+
+.water-arrow p {
+  font-size: 2rem;
+  margin: 0 auto;
+  transform: scale(3,1);
+}
+
+.item-name {
+  background-color: white;
+}
+
+#faucet {
+  margin: 0 auto;
+  width: 20vh;
+  height: 20vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  background-image: url(img/faucet.png);
+  background-size: 100% 100%;
+}
+
+.water-drop,
+.water-bubble {
+  position: absolute;
+  pointer-events: none;
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.water-drop {
+  width: var(--drop-size);
+  height: var(--drop-size);
+  background-color: var(--drop-color);
+  box-shadow: 0 0 8px rgba(68, 190, 255, 0.3);
+  animation: water-fall var(--drop-duration) ease-in forwards;
+}
+
+.water-bubble {
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  border: 2px solid rgba(173, 216, 230, 0.8);
+  background-color: rgba(173, 216, 230, 0.35);
+  animation: bubble-splash var(--bubble-duration) ease-out forwards;
+}
+
+@keyframes water-fall {
+  0% {
+    transform: translateY(0) scale(0.95);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(180px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+@keyframes bubble-splash {
+  0% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0.8;
+  }
+  60% {
+    transform: translateY(-8px) scale(1.05);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(18px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Charity: water Brand Colors
+
+Primary Colors:
+- Yellow:     #FFC907
+- Blue:       #2E9DF7
+
+Secondary Colors:
+- Light Blue: #8BD1CB
+- Green:      #4FCB53
+- Orange:     #FF902A
+- Red:        #F5402C
+- Dark Green: #159A48
+- Pink:       #F16061
+
+*/
