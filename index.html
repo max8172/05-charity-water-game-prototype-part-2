@@ -5,24 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Charity Water Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="content">
-      <img src="img/cw_logo_horizontal.png" alt="" style="height: 5vh; display: block; margin: 0 auto;">
+      <img src="img/cw_logo_horizontal.png" alt="" style="" class="top-logo">
       <div class="level-label">
         <p id="level">Level: 2</p>
       </div>
-      <p style="font-size: 1rem; font-weight: bold;">Recipe:<span id="recipe"></span></p>
+      <p style="font-size: 1rem; font-weight: bold; margin-bottom: 0;">Recipe:<span id="recipe"></span></p>
       <i style="font-size: 0.7rem;">Hint: click boxes to construct the correct type of filter for clean water!</i>
       <p id="winner-debug" style="text-align: center;"></p>
-      <div style="margin: 0 auto; width: 25vw; height: 15vh; display: flex; justify-content: center; align-items: center; overflow: hidden;"><img src="img/pond.jpg" alt="" style="margin: 0 auto; width: 13vw; transform: scale(1.7,1);"></div>
+      <div style="margin: 10px auto; width: 25vw; height: 15vh; display: flex; justify-content: center; align-items: center; overflow: hidden;"><img src="img/pond.jpg" alt="" style="margin: 0 auto; width: 13vw; transform: scale(1.2,1);"></div>
       <div class="vertical-list-container">
         <div class="vertical-list">
-          <div id="item-1" class="vertical-list-item"><div class="item-icon"></div><p class="item-name" id="item-name-1">none</p></div>
+          <div id="item-1" class="vertical-list-item"><div class="item-icon" id="item-icon-1"></div><p class="item-name" id="item-name-1">Empty</p></div>
           <div class="water-arrow"><p>↓</p></div>
-          <div id="item-2" class="vertical-list-item"><div class="item-icon"></div><p class="item-name" id="item-name-2">none</p></div>
+          <div id="item-2" class="vertical-list-item"><div class="item-icon" id="item-icon-2"></div><p class="item-name" id="item-name-2">Empty</p></div>
           <div class="water-arrow"><p>↓</p></div>
-          <div id="item-3" class="vertical-list-item"><div class="item-icon"></div><p class="item-name" id="item-name-3">none</p></div>
+          <div id="item-3" class="vertical-list-item"><div class="item-icon" id="item-icon-3"></div><p class="item-name" id="item-name-3">Empty</p></div>
         </div>
       </div>
       <div id="faucet"></div>

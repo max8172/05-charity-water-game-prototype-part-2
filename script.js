@@ -1,8 +1,8 @@
 // Log a message to the console to ensure the script is linked correctly
 console.log('JavaScript file is linked correctly.');
 
-
-key = ["rocks", "gravel", "sand", "mesh", "biofilm"];
+key_emotes = ['🪨','🟫','🏖️','🥅','🌿']
+key = ["Rocks", "Gravel", "Sand", "Mesh", "Biofilm"];
 colors = ["#334", "#777", "#daa", "#ccc", "#ada"];
 item_values = [-1, -1, -1];
 max_val = key.length;
@@ -31,18 +31,28 @@ function increment_item(item_num) {
   if (document.getElementById("debug") !== null) document.getElementById("debug").innerHTML = item_values; 
   update_colors(item_num);
   update_names(item_num);
+  update_icons(item_num);
 
   check_answer();
 }
 
 function update_colors(item_num) {
   let elem = document.getElementById("item-" + (item_num + 1).toString());
-  elem.style.backgroundColor = (item_values[item_num] == -1) ? "white" : colors[item_values[item_num]];
+  let bg_color = (item_values[item_num] == -1) ? "white" : colors[item_values[item_num]];
+  let bg_string = `radial-gradient(circle, #fff 80%, ${bg_color}a 81%)`
+  elem.style.background = bg_string;
+  elem.style.backgroundSize = "100% 300%";
+  
 }
 
 function update_names(item_num) {
   let elem = document.getElementById("item-name-" + (item_num + 1).toString());
-  elem.innerHTML = (item_values[item_num] == -1) ? "none" : key[item_values[item_num]];
+  elem.innerHTML = (item_values[item_num] == -1) ? "Empty" : key[item_values[item_num]];
+}
+
+function update_icons(item_num) {
+  let elem = document.getElementById("item-icon-" + (item_num + 1).toString());
+  elem.innerHTML = `<p>${key_emotes[item_values[item_num]]}</p>`
 }
 
 function check_answer() {
@@ -153,7 +163,7 @@ function reset() {
   document.getElementById("item-2").onclick = () => {if (!locked) increment_item(1)};
   document.getElementById("item-3").onclick = () => {if (!locked) increment_item(2)};
 
-  document.getElementById("faucet").onclick = () => {reset(); current_level++; document.getElementById("level").innerHTML = "Level: " + current_level.toString();};
+  document.getElementById("faucet").onclick = () => {if (!won) return; reset(); current_level++; document.getElementById("level").innerHTML = "Level: " + current_level.toString();};
 
   stopWaterEffect();
 
