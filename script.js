@@ -111,11 +111,13 @@ function createWaterDrop(faucet) {
   drop.className = "water-drop";
   const size = 8 + Math.random() * 14;
   const left = 30 + Math.random() * 30;
+  const drift = (Math.random() - 0.5) * 40;
   const colors = ["#2AB8F7", "#4FCBFF", "#86D4FF", "#B6E8FF"];
   const shade = colors[Math.floor(Math.random() * colors.length)];
   drop.style.setProperty("--drop-size", `${size}px`);
   drop.style.setProperty("--drop-color", shade);
   drop.style.setProperty("--drop-duration", `${1.2 + Math.random() * 0.8}s`);
+  drop.style.setProperty("--drop-drift", `${drift}px`);
   drop.style.left = `${left}%`;
   drop.style.top = `${10 + Math.random() * 10}%`;
   faucet.appendChild(drop);
@@ -136,7 +138,7 @@ function createWaterBubble(faucet) {
 }
 
 function winner() {
-  document.getElementById("winner-debug").innerHTML = "WINNER!";
+  if (document.getElementById("winner-debug") !== null) document.getElementById("winner-debug").innerHTML = "WINNER!";
   document.getElementById("faucet").innerHTML += "<p style=\"background-color: white\">NEXT LEVEL!</p>";
   startWaterEffect();
 }
@@ -177,7 +179,7 @@ function reset() {
 
   document.getElementById("recipe").innerHTML = level_recipe;
 
-  document.getElementById("winner-debug").innerHTML = "";
+  if (document.getElementById("winner-debug") !== null) document.getElementById("winner-debug").innerHTML = "";
   document.getElementById("faucet").innerHTML = "";
 
 }

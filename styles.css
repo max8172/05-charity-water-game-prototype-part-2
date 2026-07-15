@@ -15,6 +15,11 @@ body {
   padding: 15px 30px;
   box-shadow: 1px 5px 5px #eee;
   position: relative;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:100;
+  background-color: white;
 }
 
 .top-logo {
@@ -28,7 +33,7 @@ body {
   background-color: white;
   min-height: calc(100vh - 60px);
   margin: 0 auto;
-  padding: 30px 30px;
+  padding: 10vh 30px 10px 30px;
   /* border: 1px solid var(--border-color); */
   /* border-width: 0 1px 0 1px; */
 }
@@ -65,7 +70,7 @@ body {
   flex-direction: column;
   width: 20vw;
   margin: 0 auto;
-  gap: 5px;
+  gap: 10px;
 }
 
 .vertical-list-container {
@@ -125,7 +130,7 @@ body {
 
 .water-arrow p {
   /* font-size: 2rem; */
-  margin: 12px auto;
+  margin: 5px auto;
   transform: scale(1,1);
 }
 
@@ -173,15 +178,15 @@ body {
 
 @keyframes water-fall {
   0% {
-    transform: translateY(0) scale(0.95);
+    transform: translate(0, 0) scale(0.95);
     opacity: 1;
   }
   18% {
-    transform: translateY(-42px) scale(1.02);
+    transform: translate(var(--drop-drift, 0px), -42px) scale(1.02);
     opacity: 1;
   }
   100% {
-    transform: translateY(180px) scale(1.1);
+    transform: translate(calc(var(--drop-drift, 0px) * 1.2), 180px) scale(1.1);
     opacity: 0;
   }
 }
