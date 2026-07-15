@@ -39,9 +39,11 @@ function increment_item(item_num) {
 function update_colors(item_num) {
   let elem = document.getElementById("item-" + (item_num + 1).toString());
   let bg_color = (item_values[item_num] == -1) ? "white" : colors[item_values[item_num]];
-  let bg_string = `radial-gradient(circle, #fff 80%, ${bg_color}a 81%)`
-  elem.style.background = bg_string;
-  elem.style.backgroundSize = "100% 300%";
+  let bg_string = `radial-gradient(circle, #fff 90%, ${bg_color}5 90%)`
+  // elem.style.background = bg_string;
+  // elem.style.backgroundSize = "150% 100%";
+  // elem.style.backgroundPosition = "0px 0px";
+  // elem.style.backgroundRepeat = "no-repeat";
   
 }
 
@@ -52,7 +54,7 @@ function update_names(item_num) {
 
 function update_icons(item_num) {
   let elem = document.getElementById("item-icon-" + (item_num + 1).toString());
-  elem.innerHTML = `<p>${key_emotes[item_values[item_num]]}</p>`
+  elem.innerHTML = (item_values[item_num] == -1) ? "☐" : `<p>${key_emotes[item_values[item_num]]}</p>`
 }
 
 function check_answer() {
@@ -150,8 +152,6 @@ function gen_level_recipe() {
 }
 
 function reset() {
-  key = ["rocks", "gravel", "sand", "mesh", "biofilm"];
-  colors = ["#334", "#777", "#daa", "#ccc", "#ada"];
   item_values = [-1, -1, -1];
   max_val = key.length;
   locked = false;
@@ -170,6 +170,7 @@ function reset() {
   for (let i =0 ; i < 3; i++) {
     update_colors(i);
     update_names(i);
+    update_icons(i);
   }
 
 

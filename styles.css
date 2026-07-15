@@ -9,21 +9,30 @@ body {
   font-family: roboto, system-ui;
 }
 
+.top-bar {
+  height: 24px;
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 20px;
+  box-shadow: 1px 5px 5px #eee;
+  position: relative;
+}
+
+.top-logo {
+  height: 3vh;
+  display: block;
+}
+
+
 .content {
   width: 33vw;
   background-color: white;
   min-height: calc(100vh - 60px);
   margin: 0 auto;
-  padding: 30px;
-  border: 1px solid var(--border-color);
-  border-width: 0 1px 0 1px;
+  padding: 40px 40px;
+  /* border: 1px solid var(--border-color); */
+  /* border-width: 0 1px 0 1px; */
 }
 
-.top-logo {
-  height: 5vh;
-  display: block;
-  margin: 20px auto;
-}
 
 .level-label {
   border: 1px solid var(--border-color);
@@ -42,10 +51,14 @@ body {
   flex-direction: column;
   width: 20vw;
   margin: 0 auto;
+  gap: 5px;
 }
 
 .vertical-list-container {
-  
+  padding: 0 30px;
+  border-radius: var(--border-radius);
+  border-width: 1px 1px;
+  border: 1px solid var(--border-color);
 }
 
 .vertical-list-item {
@@ -55,9 +68,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 10px 5px;
   transition: all 0.2s cubic-bezier(0, 2.34, 0.64, 1);
-  gap: 20px;
+  gap: 5px;
+  box-shadow: 1px 5px 5px #eee;
 }
 
 .vertical-list-item p {
@@ -69,12 +83,11 @@ body {
 
 .vertical-list-item:hover {
   cursor: pointer;
-  transform: scale(1.02,1.02);
-  box-shadow: 1px 5px 10px #eee;
+  transform: scale(0.98,0.98);
 }
 
 .vertical-list-item:active {
-  transform: scale(1.08,1.08);
+  transform: scale(1.1,1.1);
 }
 
 .item-icon {
@@ -85,6 +98,8 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
+  border-radius: 100%;
+  padding: 8px;
 }
 
 .water-arrow {
@@ -97,7 +112,7 @@ body {
 .water-arrow p {
   /* font-size: 2rem; */
   margin: 12px auto;
-  transform: scale(1.5,1);
+  transform: scale(1,1);
 }
 
 .item-name {
@@ -105,9 +120,9 @@ body {
 }
 
 #faucet {
-  margin: 25px auto;
-  width: 12vh;
-  height: 10vh;
+  margin: 15px auto;
+  width: 10vh;
+  height: 12vh;
   position: relative;
   display: flex;
   justify-content: center;
