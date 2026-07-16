@@ -1,33 +1,18 @@
-// Log a message to the console to ensure the script is linked correctly
-console.log('JavaScript file is linked correctly.');
 
 key_emotes = ['🪨','🟫','🏖️','🥅','🌿']
 key = ["Rocks", "Gravel", "Sand", "Mesh", "Biofilm"];
 colors = ["#334", "#777", "#daa", "#ccc", "#ada"];
-item_values = [-1, -1, -1];
-max_val = key.length;
 locked = false;
 won = false;
 let waterEffectInterval = null;
 let bubbleEffectInterval = null;
-current_level = 3;
+current_level = 1;
 
-level_recipe = gen_level_recipe();
-
-document.getElementById("item-1").onclick = () => {if (!locked) increment_item(0)};
-document.getElementById("item-2").onclick = () => {if (!locked) increment_item(1)};
-document.getElementById("item-3").onclick = () => {if (!locked) increment_item(2)};
-
-document.getElementById("faucet").onclick = () => {reset();};
-
-
-document.getElementById("recipe").innerHTML = level_recipe;
-
-
+reset();
 
 
 function increment_item(item_num) {
-  item_values[item_num] = (item_values[item_num] + 1) % max_val;
+  item_values[item_num] = (item_values[item_num] + 1) % key.length;
   if (document.getElementById("debug") !== null) document.getElementById("debug").innerHTML = item_values; 
   update_colors(item_num);
   update_names(item_num);
@@ -143,10 +128,10 @@ function winner() {
   startWaterEffect();
 }
 
-function gen_level_recipe() {
+function gen_level_recipe(num_of_items) {
   let output = [];
   let counts = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < num_of_items; i++) {
     let rand_val = key[Math.floor(Math.random() * key.length)];
     output.push(rand_val);
   }
@@ -155,29 +140,41 @@ function gen_level_recipe() {
 }
 
 function reset() {
-  item_values = [-1, -1, -1];
-  max_val = key.length;
-  locked = false;
-  won = false;
+  let val = 100 - ((current_level / 5) * 100);
 
-  level_recipe = gen_level_recipe();
+  let level_label = document.getElementsByClassName("level-label")[0];
+  level_label.style.background = `radial-gradient(circle, #fff ${val}%, #77e ${val}%)`;
 
-  document.getElementById("item-1").onclick = () => {if (!locked) increment_item(0)};
-  document.getElementById("item-2").onclick = () => {if (!locked) increment_item(1)};
-  document.getElementById("item-3").onclick = () => {if (!locked) increment_item(2)};
+  num_of_items = current_level + 2;
 
-  document.getElementById("faucet").onclick = () => {if (!won) return; reset(); current_level++; document.getElementById("level").innerHTML = "Level: " + current_level.toString();};
-
-  stopWaterEffect();
-
-  for (let i =0 ; i < 3; i++) {
-    update_colors(i);
-    update_names(i);
-    update_icons(i);
+  vertical_list = document.querySelector(".vertical-list");
+  vertical_list.innerHTML = "";
+  vertical_list.innerHTML += `<div class="water-arrow"><p>↓</p></div>`;
+  for (let i = 0; i < num_of_items; i++) {
+    vertical_list.innerHTML += `<div id="item-${i + 1}" class="vertical-list-item"><div class="item-icon" id="item-icon-${i + 1}"></div><p class="item-name" id="item-name-${i + 1}">Empty</p></div>`;
   }
 
 
-  document.getElementById("recipe").innerHTML = level_recipe;
+  document.getElementById("faucet").onclick = () => {if (!won) return; current_level++; reset(); document.getElementById("level").innerHTML = "Level: " + current_level.toString();};
+  
+  stopWaterEffect();
+  locked = false;
+  won = false;
+  item_values = [];
+  
+  level_recipe = gen_level_recipe(num_of_items);
+  document.getElementById("recipe").innerHTML = level_recipe.join(", ");
+
+  for (let i = 0; i < num_of_items; i++) {
+    item_values.push(-1);
+    document.getElementById(`item-${i + 1}`).onclick = () => {if (!locked) increment_item(i)};
+
+    update_icons(i);
+    update_names(i);
+    update_colors(i);
+  }
+
+
 
   if (document.getElementById("winner-debug") !== null) document.getElementById("winner-debug").innerHTML = "";
   document.getElementById("faucet").innerHTML = "";
