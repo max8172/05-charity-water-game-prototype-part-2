@@ -122,9 +122,42 @@ function createWaterBubble(faucet) {
   setTimeout(() => bubble.remove(), 1800);
 }
 
+function advanceToNextLevel() {
+  current_level++;
+  reset();
+  document.getElementById("level").innerHTML = "Level: " + current_level.toString();
+}
+
+function showWinMessage() {
+  hideWinMessage();
+
+  const popup = document.createElement("div");
+  popup.className = "win-popup";
+
+  const messages = ["Nice job!", "Keep it up!", "Amazing work!", "You did it!"];
+  const message = messages[Math.floor(Math.random() * messages.length)];
+
+  popup.innerHTML = `
+    <div class="win-popup-box">
+      <p class="win-popup-title">${message}</p>
+      <button id="next-level-btn" class="next-level-btn">Next Level</button>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  document.getElementById("next-level-btn").onclick = () => {
+    advanceToNextLevel();
+  };
+}
+
+function hideWinMessage() {
+  document.querySelectorAll(".win-popup").forEach((popup) => popup.remove());
+}
+
 function winner() {
   if (document.getElementById("winner-debug") !== null) document.getElementById("winner-debug").innerHTML = "WINNER!";
-  document.getElementById("faucet").innerHTML += "<p style=\"background-color: white\">NEXT LEVEL!</p>";
+  showWinMessage();
   startWaterEffect();
 }
 
@@ -155,9 +188,10 @@ function reset() {
   }
 
 
-  document.getElementById("faucet").onclick = () => {if (!won) return; current_level++; reset(); document.getElementById("level").innerHTML = "Level: " + current_level.toString();};
+  document.getElementById("faucet").onclick = () => {if (!won) return; advanceToNextLevel();};
   
   stopWaterEffect();
+  hideWinMessage();
   locked = false;
   won = false;
   item_values = [];
