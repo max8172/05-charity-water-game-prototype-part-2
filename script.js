@@ -1,4 +1,7 @@
 
+flags = ['🇸🇱','🇷🇼','🇵🇰','🇳🇪','🇳🇵'];
+places = ['Sierra Leone','Rwanda','Pakistan','Niger','Nepal'];
+
 key_emotes = ['🪨','🟫','🏖️','🥅','🌿']
 key = ["Rocks", "Gravel", "Sand", "Mesh", "Biofilm"];
 colors = ["#334", "#777", "#daa", "#ccc", "#ada"];
@@ -137,22 +140,72 @@ function showWinMessage() {
   const messages = ["Nice job!", "Keep it up!", "Amazing work!", "You did it!"];
   const message = messages[Math.floor(Math.random() * messages.length)];
 
+  // Level completion popup (no country welcome here)
   popup.innerHTML = `
     <div class="win-popup-box">
       <p class="win-popup-title">${message}</p>
-      <button id="next-level-btn" class="next-level-btn">Next Level</button>
+      <button id="next-level-btn" class="next-level-btn"><span class="btn-label">Next Level</span></button>
     </div>
   `;
 
   document.body.appendChild(popup);
 
+  // When Next Level is clicked, close this popup then show the welcome popup
   document.getElementById("next-level-btn").onclick = () => {
-    advanceToNextLevel();
+    hideWinMessage();
+    showWelcomeMessage();
   };
 }
 
 function hideWinMessage() {
   document.querySelectorAll(".win-popup").forEach((popup) => popup.remove());
+}
+
+function showWelcomeMessage() {
+  hideWelcomeMessage();
+
+  const popup = document.createElement("div");
+  popup.className = "welcome-popup";
+
+  // pick country and flag for the level that was just completed
+  const idx = Math.max(0, Math.min(current_level - 1, places.length - 1));
+  const country = places[idx + 1] || "";
+  const flag = flags[idx + 1] || "";
+
+  popup.innerHTML = `
+    <div class="win-popup-box">
+      <div class="welcome-flag">${flag}</div>
+      <p class="win-popup-welcome">Welcome to ${country}!</p>
+      <button id="lets-go-btn" class="next-level-btn"><span class="btn-label">Let's go!</span></button>
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+
+  document.getElementById("lets-go-btn").onclick = () => {
+    hideWelcomeMessage();
+    advanceToNextLevel();
+  };
+}
+
+function hideWelcomeMessage() {
+  document.querySelectorAll(".welcome-popup").forEach((popup) => popup.remove());
+}
+
+function updateCurrentLocation() {
+  const idx = Math.max(0, Math.min(current_level - 1, places.length - 1));
+  const country = places[idx] || "";
+  const flag = flags[idx] || "";
+  const container = document.getElementById('current-location');
+  if (!container) return;
+  const flagElem = container.querySelector('.current-flag');
+  const nameElem = container.querySelector('.current-name');
+  if (flagElem) flagElem.textContent = flag;
+  if (nameElem) nameElem.textContent = country;
+  // trigger bounce animation by reflowing
+  container.classList.remove('bounce');
+  void container.offsetWidth;
+  container.classList.add('bounce');
 }
 
 function winner() {
@@ -212,5 +265,6 @@ function reset() {
 
   if (document.getElementById("winner-debug") !== null) document.getElementById("winner-debug").innerHTML = "";
   document.getElementById("faucet").innerHTML = "";
-
+  // update displayed current location badge
+  updateCurrentLocation();
 }
